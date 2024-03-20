@@ -8,7 +8,7 @@ tickerSymbol = "GOOGL"
 
 tickerData = yf.Ticker(tickerSymbol)
 
-tickerDf = tickerData.history(period="1d",start="2020-5-20", end="2020-5-20")
+tickerDf = tickerData.history(period="1d",start="2020-01-01", end="2020-01-01")
 
 st.line_chart(tickerDf.Close)
 st.line_chart(tickerDf.Volume)
