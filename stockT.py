@@ -4,11 +4,11 @@ import datetime
 
 st.title('Stock Tracker')
 
-tickerSymbol = "CMG"
+tickerSymbol ='GOOGL'
 
 try:
     tickerData = yf.Ticker(tickerSymbol)
-    tickerDf = tickerData.history(period='1d', start='2024-02-15', end='2024-02-15')
+    tickerDf = tickerData.history(period='1d', start='2010-5-31', end='2010-5-31')
     
     if tickerDf.empty:
         st.error("No data available for the specified date.")
