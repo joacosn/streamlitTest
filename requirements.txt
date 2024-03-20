@@ -4,3 +4,4 @@ numpy
 yfinance
 plotly.express
 datetime
+Historic_Crypto
