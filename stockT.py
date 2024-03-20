@@ -4,7 +4,7 @@ import datetime
 
 st.title('Stock Tracker')
 
-tickerSymbol = 'CMG'
+tickerSymbol = "CMG"
 
 try:
     tickerData = yf.Ticker(tickerSymbol)
