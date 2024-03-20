@@ -4,11 +4,11 @@ import datetime
 
 st.title('Stock Tracker')
 
-tickerSymbol = "GOOGL"
+tickerSymbol = 'GOOGL'
 
 tickerData = yf.Ticker(tickerSymbol)
 
-tickerDf = tickerData.history(period="1d",start="2024-03-18", end="2024-03-18")
+tickerDf = tickerData.history(period='1d',start='2024-03-18', end='2024-03-18')
 
 st.line_chart(tickerDf.Close)
 st.line_chart(tickerDf.Volume)
