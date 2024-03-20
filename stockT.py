@@ -6,3 +6,4 @@ st.write(""""
 # Simple stock app price
 
 """)
+
