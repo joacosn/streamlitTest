@@ -1,19 +1,17 @@
-import streamlit as st, pandas as pd, numpy as np, yfinance as yf
+import streamlit as st
+import pandas as pd
+import numpy as np
+import yfinance as yf
 import plotly.express as px
 import datetime
 
 st.title('Stock Tracker')
 
-tickerSymbol ='GOOGL'
+tickerSymbol ='YOJ.SG'
 
-try:
-    tickerData = yf.Ticker(tickerSymbol)
-    tickerDf = tickerData.history(period='1d', start='2010-5-31', end='2010-5-31')
+tickerData = yf.Ticker(tickerSymbol)
+tickerDf = tickerData.history(period='1M', start='2024-2-18', end='2024-3-18')
     
-    if tickerDf.empty:
-        st.error("No data available for the specified date.")
-    else:
-        st.line_chart(tickerDf.Close)
-        st.line_chart(tickerDf.Volume)
-except Exception as e:
-    st.error(f"Error fetching data: {str(e)}")
+st.line_chart(tickerDf.Close)
+
+st.line_chart(tickerDf.Volume)
