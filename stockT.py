@@ -7,18 +7,23 @@ import plotly.express as px
 ##import altair as alt
 import datetime
 
+##Ingresamos el titulo y descripcion de la aplicacion a construir
 st.title('Stock Tracker')
+
+'This is a **Yahoo** stock close price and volume tracker'
 
 tickerSymbol ='YOJ.SG'
 
-
+##Definimos la accion y la fecha la cual queremos usar
 tickerData = yf.Ticker(tickerSymbol)
 tickerDf = tickerData.history(period="1M", start="2024-2-18", end="2024-3-18")
 
 tickerDf.reset_index(inplace=True)
 
-fig_close = px.line(tickerDf, x='Date', y='Close', title='Close Price', color_discrete_sequence=['blue'])
-fig_close.update_layout(legend_title=tickerSymbol)
+##Creamos las definiciones para poder crear los graficos de lineas
+fig_close = px.line(tickerDf, x='Date', y='Close', title='Close Price', color_discrete_sequence=['blue'], labels={'Close': tickerSymbol})
+fig_close.update_traces(mode="lines+markers")  # Add markers to the lines for better visibility
+fig_close.update_layout(legend=dict(x=0, y=1))
 fig_volume = px.line(tickerDf, x='Date', y='Volume', title='Volume', color_discrete_sequence=['green'], labels={'Volume': tickerSymbol})
 fig_volume.update_traces(mode="lines+markers")  # Add markers to the lines for better visibility
 fig_volume.update_layout(legend=dict(x=0, y=1))
