@@ -3,9 +3,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import yfinance as yf
+import plotly.express as px
 import altair as alt
-##import plotly.express as px
-##import datetime
+import datetime
 
 st.title('Stock Tracker')
 
@@ -13,6 +13,9 @@ tickerSymbol ='YOJ.SG'
 
 tickerData = yf.Ticker(tickerSymbol)
 tickerDf = tickerData.history(period="1M", start="2024-2-18", end="2024-3-18")
+
+# Convert 'Date' column to datetime
+tickerDf['Date'] = pd.to_datetime(tickerDf.index)
 
 
 # Create line charts with Altair
@@ -29,7 +32,7 @@ line_chart_close = alt.Chart(tickerDf).mark_line().encode(
 line_chart_volume = alt.Chart(tickerDf).mark_line().encode(
     x='Date',
     y='Volume',
-    color=alt.value("green"),
+    color=px.value("green"),
     tooltip=['Date', 'Volume']
 ).properties(
     width=600,
