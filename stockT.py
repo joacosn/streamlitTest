@@ -17,13 +17,15 @@ tickerDf = tickerData.history(period="1M", start="2024-2-18", end="2024-3-18")
 # Convert 'Date' column to datetime
 tickerDf['Date'] = pd.to_datetime(tickerDf.index)
 
+highlight = alt.selection_point(
+    on="mouseover", fields=["symbol"], nearest=True
+)
 
 # Create line charts with Altair
 line_chart_close = alt.Chart(tickerDf).mark_line().encode(
     x='Date',
     y='Close',
-    color=alt.value("blue"),
-    tooltip=['Date', 'Close']
+    color=alt.value("symbol")
 ).properties(
     width=600,
     height=300
@@ -32,8 +34,7 @@ line_chart_close = alt.Chart(tickerDf).mark_line().encode(
 line_chart_volume = alt.Chart(tickerDf).mark_line().encode(
     x='Date',
     y='Volume',
-    color=px.value("green"),
-    tooltip=['Date', 'Volume']
+    color=alt.value("green")
 ).properties(
     width=600,
     height=300
@@ -41,7 +42,6 @@ line_chart_volume = alt.Chart(tickerDf).mark_line().encode(
 
 st.altair_chart(line_chart_close)
 st.altair_chart(line_chart_volume)
-
 
 
 col1, col2, col3 = st.columns(3)
