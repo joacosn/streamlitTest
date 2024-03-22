@@ -4,49 +4,28 @@ import pandas as pd
 import numpy as np
 import yfinance as yf
 import plotly.express as px
-import altair as alt
+##import altair as alt
 import datetime
 
 st.title('Stock Tracker')
 
 tickerSymbol ='YOJ.SG'
 
+
 tickerData = yf.Ticker(tickerSymbol)
 tickerDf = tickerData.history(period="1M", start="2024-2-18", end="2024-3-18")
 
-# Convert 'Date' column to datetime
-tickerDf['Date'] = pd.to_datetime(tickerDf.index)
+tickerDf.reset_index(inplace=True)
 
-highlight = alt.selection_point(
-    on="mouseover", fields=["symbol"], nearest=True
-)
+fig_close = px.line(tickerDf, x='Date', y='Close', title='Close Price', color_discrete_sequence=['blue'])
+fig_close.update_layout(legend_title=tickerSymbol)
+fig_volume = px.line(tickerDf, x='Date', y='Volume', title='Volume', color_discrete_sequence=['green'], labels={'Volume': tickerSymbol})
+fig_volume.update_traces(mode="lines+markers")  # Add markers to the lines for better visibility
+fig_volume.update_layout(legend=dict(x=0, y=1))
 
-# Create line charts with Altair
-line_chart_close = alt.Chart(tickerDf).mark_line().encode(
-    x='Date',
-    y='Close',
-    color=alt.value("purple"),
-        tooltip=['Date', 'Close']
-).properties(
-    width=600,
-    height=300
-)
+st.plotly_chart(fig_close)
+st.plotly_chart(fig_volume)
 
-line_chart_volume = alt.Chart(tickerDf).mark_line().encode(
-    x='Date',
-    y='Volume',
-    color=alt.value("green")
-).properties(
-    width=600,
-    height=300
-)
-
-# Add legends
-line_chart_close = line_chart_close.properties(title="Close").interactive()
-line_chart_volume = line_chart_volume.properties(title="Volume").interactive()
-
-st.altair_chart(line_chart_close)
-st.altair_chart(line_chart_volume)
 
 
 col1, col2, col3 = st.columns(3)
