@@ -36,8 +36,8 @@ line_chart_volume = alt.Chart(tickerDf).mark_line().encode(
     height=300
 )
 
-st.altair_chart(line_chart_close, use_container_width=True)
-st.altair_chart(line_chart_volume, use_container_width=True)
+st.altair_chart(line_chart_close)
+st.altair_chart(line_chart_volume)
 
 
 
