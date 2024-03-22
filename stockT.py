@@ -25,7 +25,8 @@ highlight = alt.selection_point(
 line_chart_close = alt.Chart(tickerDf).mark_line().encode(
     x='Date',
     y='Close',
-    color=alt.value("symbol")
+    color=alt.value("purple"),
+        tooltip=['Date', 'Close']
 ).properties(
     width=600,
     height=300
@@ -39,6 +40,10 @@ line_chart_volume = alt.Chart(tickerDf).mark_line().encode(
     width=600,
     height=300
 )
+
+# Add legends
+line_chart_close = line_chart_close.properties(title="Close").interactive()
+line_chart_volume = line_chart_volume.properties(title="Volume").interactive()
 
 st.altair_chart(line_chart_close)
 st.altair_chart(line_chart_volume)
